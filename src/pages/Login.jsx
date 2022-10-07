@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getRequest, user } from '../redux/actions';
 
+
 class Login extends Component {
   state = {
     disabled: true,
@@ -30,6 +31,7 @@ class Login extends Component {
     await request();
     submitForm({ ...this.state });
     history.push('/game');
+
   };
 
   render() {
@@ -76,11 +78,24 @@ class Login extends Component {
           >
             Play
           </button>
+          <button
+            type="button"
+            data-testid="btn-settings"
+            onClick={ this.handleConfiguration }
+          >
+            Configurações
+          </button>
         </form>
       </div>
     );
   }
 }
+Login.propTypes = {
+
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
 
 Login.propTypes = {
   submitForm: PropTypes.func,
