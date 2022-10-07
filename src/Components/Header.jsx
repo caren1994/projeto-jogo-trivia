@@ -1,7 +1,6 @@
-import { AiFillStar } from 'react-icons/ai'
-import { FcDataConfiguration } from 'react-icons/fc'
+import { AiFillStar } from 'react-icons/ai';
+import { FcDataConfiguration } from 'react-icons/fc';
 import User from '../assets/Captura de Tela 2022-07-14 às 13.49 1.png';
-
 
 function Header() {
   return (
@@ -11,7 +10,7 @@ function Header() {
         h-28
         flex
         justify-end
-        items-center 
+        items-center
         px-20
         shadow
       "
@@ -33,7 +32,7 @@ function Header() {
           <img
             data-testid="header-profile-picture"
             alt="Perfil Usuário"
-            src={User}
+            src={ User }
           />
           <span data-testid="header-player-name">Eduardo</span>
         </div>
@@ -71,7 +70,7 @@ function Header() {
       </div>
 
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;

@@ -26,10 +26,9 @@ class Login extends Component {
 
   handleClick = (e) => {
     e.preventDefault();
-    const { submitForm, history, dispatch } = this.props;
+    const { submitForm, history, request } = this.props;
     history.push('/game');
-    console.log(dispatch);
-    dispatch(getRequest);
+    request();
     submitForm({ ...this.state });
   };
 
@@ -92,6 +91,7 @@ Login.propTypes = {
 }.isRequired;
 
 const mapDispatchToProps = (dispatch) => ({
+  request: () => dispatch(getRequest()),
   submitForm: (e) => dispatch(user(e)),
 });
 
