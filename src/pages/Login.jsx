@@ -24,13 +24,12 @@ class Login extends Component {
     });
   };
 
-  handleClick = (e) => {
+  handleClick = async (e) => {
     e.preventDefault();
-    const { submitForm, history, dispatch } = this.props;
-    history.push('/game');
-    console.log(dispatch);
-    dispatch(getRequest);
+    const { submitForm, history, request } = this.props;
+    await request();
     submitForm({ ...this.state });
+    history.push('/game');
   };
 
   render() {
@@ -85,13 +84,13 @@ class Login extends Component {
 
 Login.propTypes = {
   submitForm: PropTypes.func,
-  dispatch: PropTypes.func,
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
 }.isRequired;
 
 const mapDispatchToProps = (dispatch) => ({
+  request: () => dispatch(getRequest()),
   submitForm: (e) => dispatch(user(e)),
 });
 
