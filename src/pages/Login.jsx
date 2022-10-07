@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getRequest, user } from '../redux/actions';
 
-
 class Login extends Component {
   state = {
     disabled: true,
@@ -31,7 +30,11 @@ class Login extends Component {
     await request();
     submitForm({ ...this.state });
     history.push('/game');
+  };
 
+  handleConfiguration = () => {
+    const { history } = this.props;
+    history.push('/configuration');
   };
 
   render() {
