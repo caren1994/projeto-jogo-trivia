@@ -1,11 +1,11 @@
-import Header from "../Components/Header"
+import React from 'react';
 
-const Games = () => {
-  return (
-    <div>
-      <Header />
-    </div>
-  )
+class Game extends React.Component {
+  render() {
+    return (
+      <div>Games</div>
+    );
+  }
 }
 
-export default Games
+export default Game;
