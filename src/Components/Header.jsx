@@ -1,8 +1,14 @@
+import React from 'react';
 import { AiFillStar } from 'react-icons/ai';
 import { FcDataConfiguration } from 'react-icons/fc';
-import User from '../assets/Captura de Tela 2022-07-14 às 13.49 1.png';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import md5 from 'crypto-js/md5';
 
-function Header() {
+function Header({ userEmail, name, score }) {
+  const hash = md5(userEmail).toString();
+  const url = `https://www.gravatar.com/avatar/${hash}`;
+
   return (
     <header
       className="
@@ -32,9 +38,9 @@ function Header() {
           <img
             data-testid="header-profile-picture"
             alt="Perfil Usuário"
-            src={ User }
+            src={ url }
           />
-          <span data-testid="header-player-name">Eduardo</span>
+          <span data-testid="header-player-name">{name}</span>
         </div>
         <div
           className="
@@ -54,7 +60,7 @@ function Header() {
             <strong
               data-testid="header-score"
             >
-              0
+              {score}
             </strong>
           </span>
         </div>
@@ -73,4 +79,16 @@ function Header() {
   );
 }
 
-export default Header;
+const mapStateToProps = (state) => ({
+  userEmail: state.player.gravatarEmail,
+  name: state.player.name,
+  score: state.player.score,
+});
+
+Header.propTypes = {
+  userEmail: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
+};
+
+export default connect(mapStateToProps)(Header);
