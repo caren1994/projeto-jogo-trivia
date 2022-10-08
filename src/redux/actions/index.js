@@ -16,16 +16,13 @@ export const failApi = (erro) => ({ type: FAIL_REQ, erro });
 
 export function getRequest() {
   return async (dispatch) => {
-    const getRequestApi = await fetch('https://opentdb.com/api_token.php?command=request');
-    const token = await getRequestApi.json();
-    console.log(token);
     try {
-      if (token.response_code === 0) {
-        localStorage.setItem('token', token.token);
-        const response = await fetch(`https://opentdb.com/api.php?amount=5&token=${token.token}`);
-        const data = await response.json();
-        dispatch(responseApi(data));
-      }
+      const getRequestApi = await (await fetch('https://opentdb.com/api_token.php?command=request')).json();
+      const { token } = getRequestApi;
+      localStorage.setItem('token', token);
+      const response = await (await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`)).json();
+
+      dispatch(responseApi(response));
     } catch (e) {
       dispatch(failApi(error));
     }
