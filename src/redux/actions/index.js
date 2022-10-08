@@ -1,4 +1,4 @@
-import { FAIL_REQ, LOGIN } from "./actionTypes";
+import { FAIL_REQ, LOGIN } from './actionTypes';
 
 export const login = (payload) => ({
   type: LOGIN,
@@ -6,4 +6,3 @@ export const login = (payload) => ({
 });
 
 export const failApi = (erro) => ({ type: FAIL_REQ, erro });
-

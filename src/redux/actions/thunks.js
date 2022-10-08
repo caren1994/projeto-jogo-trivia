@@ -1,6 +1,6 @@
-import { login, failApi } from "./index";
+import { login, failApi } from './index';
 
-export function getToken(user) {
+export default function getToken(user) {
   return async (dispatch) => {
     try {
       const getRequestToken = await (await fetch('https://opentdb.com/api_token.php?command=request')).json();
@@ -12,4 +12,3 @@ export function getToken(user) {
     }
   };
 }
-

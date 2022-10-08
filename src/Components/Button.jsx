@@ -1,12 +1,11 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 
-
-const Button = ({ text, onClick, type, ...rest }) => {
+function Button({ text, onClick, ...rest }) {
   return (
     <button
-      type={type}
-      onClick={onClick}
+      onClick={ onClick }
+      type="button"
       className="
         bg-[#2fc18c]
         py-3
@@ -18,17 +17,16 @@ const Button = ({ text, onClick, type, ...rest }) => {
         disabled:bg-[#186b4d]
         hover:bg-[#186b4d]
         "
-      {...rest}
+      { ...rest }
     >
       {text}
     </button>
-  )
+  );
 }
 
 Button.propTypes = {
   text: Proptypes.string.isRequired,
-  onclick: Proptypes.func.isRequired,
-  type: Proptypes.string.isRequired,
-}
+  onClick: Proptypes.func.isRequired,
+};
 
-export default Button
+export default Button;

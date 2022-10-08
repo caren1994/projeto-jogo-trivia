@@ -39,7 +39,7 @@ function Header({ userEmail, name, score }) {
           <img
             data-testid="header-profile-picture"
             alt="Perfil Usuário"
-            src={url}
+            src={ url }
             className="
               rounded-full
               w-16

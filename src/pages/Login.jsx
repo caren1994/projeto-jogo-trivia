@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getToken } from '../redux/actions/thunks.js';
-import Button from '../Components/Button'
+import getToken from '../redux/actions/thunks';
+import Button from '../Components/Button';
 import Logo from '../assets/logo trivia.svg';
 
 class Login extends Component {
@@ -54,7 +54,7 @@ class Login extends Component {
         "
       >
         <img
-          src={Logo}
+          src={ Logo }
           alt="Logo"
           className="
             sm:w-32
@@ -90,10 +90,10 @@ class Login extends Component {
               "
               data-testid="input-player-name"
               type="text"
-              value={name}
+              value={ name }
               placeholder="Name"
               name="name"
-              onChange={this.handleChange}
+              onChange={ this.handleChange }
             />
 
             <input
@@ -106,16 +106,16 @@ class Login extends Component {
               "
               data-testid="input-gravatar-email"
               type="email"
-              value={email}
+              value={ email }
               name="email"
               placeholder="Email"
-              onChange={this.handleChange}
+              onChange={ this.handleChange }
             />
             <Button
-              disabled={disabled}
+              disabled={ disabled }
               type="button"
               data-testid="btn-play"
-              onClick={this.handleClick}
+              onClick={ this.handleClick }
               text="Play"
             />
             <button
@@ -131,7 +131,7 @@ class Login extends Component {
               "
               type="button"
               data-testid="btn-settings"
-              onClick={this.handleConfiguration}
+              onClick={ this.handleConfiguration }
             >
               Configurações
             </button>
