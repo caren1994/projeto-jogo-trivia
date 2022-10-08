@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getRequest, user } from '../redux/actions';
 
 class Login extends Component {
   state = {
@@ -20,6 +22,14 @@ class Login extends Component {
         this.setState({ disabled: true });
       }
     });
+  };
+
+  handleClick = async (e) => {
+    e.preventDefault();
+    const { submitForm, history, request } = this.props;
+    await request();
+    submitForm({ ...this.state });
+    history.push('/game');
   };
 
   handleConfiguration = () => {
@@ -67,6 +77,7 @@ class Login extends Component {
             disabled={ disabled }
             type="button"
             data-testid="btn-play"
+            onClick={ this.handleClick }
           >
             Play
           </button>
@@ -89,4 +100,16 @@ Login.propTypes = {
   }).isRequired,
 };
 
-export default Login;
+Login.propTypes = {
+  submitForm: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
+
+const mapDispatchToProps = (dispatch) => ({
+  request: () => dispatch(getRequest()),
+  submitForm: (e) => dispatch(user(e)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

@@ -1,3 +1,5 @@
+import { USER } from '../actions';
+
 const INITIAL_STATE = {
   name: '',
   assertions: 0,
@@ -7,9 +9,12 @@ const INITIAL_STATE = {
 
 export default function PlayerReducer(state = INITIAL_STATE, action) {
   switch (action.payload) {
-  case '':
-
-    return state;
+  case USER:
+    return {
+      ...state,
+      email: action.payload.email,
+      name: action.payload.name,
+    };
 
   default:
     return state;
