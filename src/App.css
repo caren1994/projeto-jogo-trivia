@@ -4,6 +4,9 @@
 
 /* @tailwind utilities ; */
 body {
+  background-image: url('./assets/background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
   box-sizing: border-box;
   margin: 0;
   padding: 0;

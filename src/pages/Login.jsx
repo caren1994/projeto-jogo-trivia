@@ -2,6 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getRequest, user } from '../redux/actions';
+import Logo from '../assets/logo trivia.svg';
 
 class Login extends Component {
   state = {
@@ -40,19 +41,52 @@ class Login extends Component {
   render() {
     const { disabled, email, name } = this.state;
     return (
-      <div>
+      <div
+        className="
+          w-full
+          h-[100vh]
+          flex
+          flex-col
+          items-center
+          pt-32
+          gap-6
+        "
+      >
+        <img
+          src={ Logo }
+          alt="Logo"
+          className="
+            sm:w-32
+          "
+        />
         <form
           className="
-            bg-blue-700
-            flex
-            items-center
-            justify-center
-            mx-auto
-            flex-col
-            h-80"
+            sm:w-96
+            w-[614px]
+            h-auto
+            rounded-xl
+            bg-white
+            overflow-hidden
+            px-12
+            py-10
+            "
         >
-          <div>
+          <div
+            className="
+              container
+              flex
+              flex-col
+              gap-5
+            "
+          >
             <input
+              className="
+                border
+                border-solid
+                border-gray-300
+                py-3
+                px-4
+              "
               data-testid="input-player-name"
               type="text"
               value={ name }
@@ -60,10 +94,15 @@ class Login extends Component {
               name="name"
               onChange={ this.handleChange }
             />
-          </div>
 
-          <div>
             <input
+              className="
+                border
+                border-solid
+                border-gray-300
+                py-3
+                px-4
+              "
               data-testid="input-gravatar-email"
               type="email"
               value={ email }
@@ -71,23 +110,43 @@ class Login extends Component {
               placeholder="Email"
               onChange={ this.handleChange }
             />
+            <button
+              className="
+                bg-[#2fc18c]
+                py-3
+                px-4
+                text-white
+                font-bold
+                text-xl
+                cursor-pointer
+                disabled:bg-[#186b4d]
+                hover:bg-[#186b4d]
+              "
+              disabled={ disabled }
+              type="button"
+              data-testid="btn-play"
+              onClick={ this.handleClick }
+            >
+              Play
+            </button>
+            <button
+              className="
+                bg-gray-400
+                py-3
+                px-4
+                text-white
+                font-bold
+                text-xl
+                cursor-pointer
+                hover:bg-gray-800
+              "
+              type="button"
+              data-testid="btn-settings"
+              onClick={ this.handleConfiguration }
+            >
+              Configurações
+            </button>
           </div>
-          <button
-            className="bg-green-500 mt-10 pt-4 px-10 disabled:bg-cyan-200 rounded"
-            disabled={ disabled }
-            type="button"
-            data-testid="btn-play"
-            onClick={ this.handleClick }
-          >
-            Play
-          </button>
-          <button
-            type="button"
-            data-testid="btn-settings"
-            onClick={ this.handleConfiguration }
-          >
-            Configurações
-          </button>
         </form>
       </div>
     );
