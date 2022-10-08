@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getRequest, user } from '../redux/actions';
-import Logo from '../assets/logo trivia.svg'
+import Logo from '../assets/logo trivia.svg';
 
 class Login extends Component {
   state = {
@@ -53,11 +53,11 @@ class Login extends Component {
         "
       >
         <img
-          src={Logo}
+          src={ Logo }
           alt="Logo"
-          className='
+          className="
             sm:w-32
-          '
+          "
         />
         <form
           className="
@@ -80,38 +80,38 @@ class Login extends Component {
             "
           >
             <input
-              className='
+              className="
                 border
                 border-solid
                 border-gray-300
                 py-3
                 px-4
-              '
+              "
               data-testid="input-player-name"
               type="text"
-              value={name}
+              value={ name }
               placeholder="Name"
               name="name"
-              onChange={this.handleChange}
+              onChange={ this.handleChange }
             />
 
             <input
-              className='
+              className="
                 border
                 border-solid
                 border-gray-300
                 py-3
                 px-4
-              '
+              "
               data-testid="input-gravatar-email"
               type="email"
-              value={email}
+              value={ email }
               name="email"
               placeholder="Email"
-              onChange={this.handleChange}
+              onChange={ this.handleChange }
             />
             <button
-              className='
+              className="
                 bg-[#2fc18c]
                 py-3
                 px-4
@@ -119,18 +119,18 @@ class Login extends Component {
                 font-bold
                 text-xl
                 cursor-pointer
-                disabled:bg-[#186b4d] 
+                disabled:bg-[#186b4d]
                 hover:bg-[#186b4d]
-              '
-              disabled={disabled}
+              "
+              disabled={ disabled }
               type="button"
               data-testid="btn-play"
-              onClick={this.handleClick}
+              onClick={ this.handleClick }
             >
               Play
             </button>
             <button
-              className='
+              className="
                 bg-gray-400
                 py-3
                 px-4
@@ -139,10 +139,10 @@ class Login extends Component {
                 text-xl
                 cursor-pointer
                 hover:bg-gray-800
-              '
+              "
               type="button"
               data-testid="btn-settings"
-              onClick={this.handleConfiguration}
+              onClick={ this.handleConfiguration }
             >
               Configurações
             </button>
