@@ -24,10 +24,10 @@ class Login extends Component {
     });
   };
 
-  handleClick = async (e) => {
+  handleClick = (e) => {
     e.preventDefault();
     const { submitForm, history, request } = this.props;
-    await request();
+    request();
     submitForm({ ...this.state });
     history.push('/game');
   };
