@@ -15,8 +15,8 @@ expect(name).toBeInTheDocument();
 expect(email).toBeInTheDocument();
 
 })
-it('botao disable',()=>{
-  renderWithRouterAndRedux(<App/>);
+it('botao disable',async ()=>{
+  const { history } = renderWithRouterAndRedux(<App/>);
   const name = screen.getByTestId('input-player-name');
   const email = screen.getByTestId('input-gravatar-email'); 
 const button = screen.getByRole('button', { name: /play/i });
@@ -25,9 +25,13 @@ const testemail = 'caren@oliveira.com';
     userEvent.type(email, testemail);
     userEvent.type(name, testname);
     userEvent.click(button);
+    history.push('/game');
     expect(name.value).toBe(testname);
     expect(email.value).toBe(testemail);
     expect(button).toBeEnabled();
+    const { location: { pathname } } = history;
+    expect(pathname).toBe('/game');
+    
 
 })
 it('botao play',()=>{
@@ -49,4 +53,10 @@ const { location: { pathname } } = history;
 expect(pathname).toBe('/configuration');
 
 })
+// it('rota game',()=>{
+//  const { history } = renderWithRouterAndRedux(<App />, { initialEntries: ['/game'] });
+//  console.log(history.location.pathname);
+//   const text=screen.getByText('Games');
+//   expect(text).toBeInTheDocument();
+// })
 })
