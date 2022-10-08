@@ -1,8 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { user } from '../redux/actions';
-import getToken from '../utils/localStorage';
+import { getToken } from '../redux/actions/thunks.js';
 import Button from '../Components/Button'
 import Logo from '../assets/logo trivia.svg';
 
@@ -27,11 +26,11 @@ class Login extends Component {
     });
   };
 
-  handleClick = async (e) => {
+  handleClick = (e) => {
     e.preventDefault();
     const { submitForm, history } = this.props;
-    await getToken()
-    submitForm({ ...this.state });
+    const { email, name } = this.state;
+    submitForm({ email, name });
     history.push('/game');
   };
 
@@ -151,7 +150,7 @@ Login.propTypes = {
 }.isRequired;
 
 const mapDispatchToProps = (dispatch) => ({
-  submitForm: (e) => dispatch(user(e)),
+  submitForm: (user) => dispatch(getToken(user)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

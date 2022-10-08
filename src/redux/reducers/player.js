@@ -1,4 +1,4 @@
-import { USER, FAIL_REQ } from '../actions';
+import { LOGIN, FAIL_REQ } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
@@ -9,17 +9,17 @@ const INITIAL_STATE = {
 
 export default function PlayerReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case USER:
-    return {
-      ...state,
-      gravatarEmail: action.payload.email,
-      name: action.payload.name,
-    };
-  case FAIL_REQ:
-    // TODO:Tratar o Erro da Chamada a Api!
-    return state;
+    case LOGIN:
+      return {
+        ...state,
+        gravatarEmail: action.payload.email,
+        name: action.payload.name,
+      };
+    case FAIL_REQ:
+      // TODO:Tratar o Erro da Chamada a Api!
+      return state;
 
-  default:
-    return state;
+    default:
+      return state;
   }
 }
