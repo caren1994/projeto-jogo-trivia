@@ -24,12 +24,18 @@ class Login extends Component {
     });
   };
 
-  handleClick = (e) => {
+  handleClick = async (e) => {
     e.preventDefault();
     const { submitForm, history, request } = this.props;
     history.push('/game');
     request();
     submitForm({ ...this.state });
+    history.push('/game');
+  };
+
+  handleConfiguration = () => {
+    const { history } = this.props;
+    history.push('/configuration');
   };
 
   render() {
@@ -76,15 +82,27 @@ class Login extends Component {
           >
             Play
           </button>
+          <button
+            type="button"
+            data-testid="btn-settings"
+            onClick={ this.handleConfiguration }
+          >
+            Configurações
+          </button>
         </form>
       </div>
     );
   }
 }
+Login.propTypes = {
+
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
 
 Login.propTypes = {
   submitForm: PropTypes.func,
-  dispatch: PropTypes.func,
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
