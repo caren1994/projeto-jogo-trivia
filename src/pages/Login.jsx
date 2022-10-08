@@ -1,7 +1,9 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getRequest, user } from '../redux/actions';
+import { user } from '../redux/actions';
+import getToken from '../utils/localStorage';
+import Button from '../Components/Button'
 import Logo from '../assets/logo trivia.svg';
 
 class Login extends Component {
@@ -25,10 +27,10 @@ class Login extends Component {
     });
   };
 
-  handleClick = (e) => {
+  handleClick = async (e) => {
     e.preventDefault();
-    const { submitForm, history, request } = this.props;
-    request();
+    const { submitForm, history } = this.props;
+    await getToken()
     submitForm({ ...this.state });
     history.push('/game');
   };
@@ -53,7 +55,7 @@ class Login extends Component {
         "
       >
         <img
-          src={ Logo }
+          src={Logo}
           alt="Logo"
           className="
             sm:w-32
@@ -89,10 +91,10 @@ class Login extends Component {
               "
               data-testid="input-player-name"
               type="text"
-              value={ name }
+              value={name}
               placeholder="Name"
               name="name"
-              onChange={ this.handleChange }
+              onChange={this.handleChange}
             />
 
             <input
@@ -105,30 +107,18 @@ class Login extends Component {
               "
               data-testid="input-gravatar-email"
               type="email"
-              value={ email }
+              value={email}
               name="email"
               placeholder="Email"
-              onChange={ this.handleChange }
+              onChange={this.handleChange}
             />
-            <button
-              className="
-                bg-[#2fc18c]
-                py-3
-                px-4
-                text-white
-                font-bold
-                text-xl
-                cursor-pointer
-                disabled:bg-[#186b4d]
-                hover:bg-[#186b4d]
-              "
-              disabled={ disabled }
+            <Button
+              disabled={disabled}
               type="button"
               data-testid="btn-play"
-              onClick={ this.handleClick }
-            >
-              Play
-            </button>
+              onClick={this.handleClick}
+              text="Play"
+            />
             <button
               className="
                 bg-gray-400
@@ -142,7 +132,7 @@ class Login extends Component {
               "
               type="button"
               data-testid="btn-settings"
-              onClick={ this.handleConfiguration }
+              onClick={this.handleConfiguration}
             >
               Configurações
             </button>
@@ -152,12 +142,6 @@ class Login extends Component {
     );
   }
 }
-Login.propTypes = {
-
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
-};
 
 Login.propTypes = {
   submitForm: PropTypes.func,
@@ -167,7 +151,6 @@ Login.propTypes = {
 }.isRequired;
 
 const mapDispatchToProps = (dispatch) => ({
-  request: () => dispatch(getRequest()),
   submitForm: (e) => dispatch(user(e)),
 });
 

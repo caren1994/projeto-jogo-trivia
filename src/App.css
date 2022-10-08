@@ -1,14 +1,16 @@
-/* @tailwind base ; */
+@tailwind base ;
 
-/* @tailwind components ; */
+@tailwind components ;
 
-/* @tailwind utilities ; */
+@tailwind utilities ;
 body {
   background-image: url('./assets/background.png');
   background-repeat: no-repeat;
   background-size: cover;
   box-sizing: border-box;
+  height: 100vh;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
