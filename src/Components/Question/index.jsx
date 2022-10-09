@@ -2,8 +2,12 @@ import { IoTimeSharp } from 'react-icons/io5';
 import { AiFillCloseCircle, AiFillCheckCircle } from 'react-icons/ai';
 import Button from '../Button';
 import Logo from '../../assets/logo trivia.svg';
+import { connect } from 'react-redux';
 
-function Question() {
+function Question({ questions }) {
+
+  const firstQuestion = questions[0]
+  console.log(firstQuestion)
   return (
     <>
       <div
@@ -48,16 +52,13 @@ function Question() {
               "
 
           >
-            <h3>Politica</h3>
+            <h3 data-testid="question-category">{firstQuestion.category}</h3>
           </div>
           <p
             className="mb-24"
+            data-testid="question-text"
           >
-            Jed Bush was
-            elected as Governor
-            od Florida in 2002,
-            startin his political
-            career.
+            {firstQuestion.question}
           </p>
           <span
             className="
@@ -157,4 +158,8 @@ function Question() {
   );
 }
 
-export default Question;
+const mapStateToProps = (state) => ({
+  questions: state.player.questions
+})
+
+export default connect(mapStateToProps)(Question);

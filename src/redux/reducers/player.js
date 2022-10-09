@@ -5,7 +5,11 @@ const INITIAL_STATE = {
   assertions: 0,
   score: 0,
   gravatarEmail: '',
-  questions: []
+  questions: [],
+  requisition: {
+    failed: false,
+    errorMessage: ''
+  },
 };
 
 export default function PlayerReducer(state = INITIAL_STATE, action) {
@@ -13,15 +17,28 @@ export default function PlayerReducer(state = INITIAL_STATE, action) {
     case LOGIN:
       return {
         ...state,
+        requisition: {
+          failed: false,
+          errorMessage: '',
+        },
         gravatarEmail: action.payload.email,
         name: action.payload.name,
       };
     case FAIL_REQ:
-      // TODO:Tratar o Erro da Chamada a Api!
-      return state;
+      return {
+        ...state,
+        requisition: {
+          failed: true,
+          errorMessage: action.payload,
+        }
+      };
     case QUESTIONS_REQ:
       return {
         ...state,
+        requisition: {
+          failed: false,
+          errorMessage: '',
+        },
         questions: action.payload.results
       }
 

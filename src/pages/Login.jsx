@@ -30,8 +30,8 @@ class Login extends Component {
     e.preventDefault();
     const { submitForm, history } = this.props;
     const { email, name } = this.state;
-    submitForm({ email, name });
-    history.push('/game');
+    submitForm({ email, name }, history);
+
   };
 
   handleConfiguration = () => {
@@ -150,7 +150,7 @@ Login.propTypes = {
 }.isRequired;
 
 const mapDispatchToProps = (dispatch) => ({
-  submitForm: (user) => dispatch(getToken(user)),
+  submitForm: (user, history) => dispatch(getToken(user, history)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

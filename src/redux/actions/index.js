@@ -10,4 +10,4 @@ export const setQuestions = (payload) => ({
   payload,
 })
 
-export const failApi = (erro) => ({ type: FAIL_REQ, erro });
+export const failApi = (payload) => ({ type: FAIL_REQ, payload });
