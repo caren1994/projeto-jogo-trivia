@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../Components/Header';
 import Question from '../Components/Question';
 
@@ -9,7 +9,7 @@ import Question from '../Components/Question';
 //     question: 'What is the first weapon you acquire in Half-Life?',
 //     correct_answer: 'A crowbar',
 //     incorrect_answers: [
-//       'A pistol',
+//    'A pistol',
 //       'The H.E.V suit',
 //       'Your fists',
 //     ],
@@ -40,7 +40,8 @@ function Game() {
         <Question />
       </section>
     </div>
-  );
+  )
 }
+
 
 export default Game;
