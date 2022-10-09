@@ -5,13 +5,18 @@ import Question from '../Components/Question';
 
 function Game() {
   return (
-    <div className="h-full w-full">
+    <div className=" w-full">
       <Header />
       <section
         className="
           w-[100%]
           grid
           grid-cols-2
+          lg:flex 
+          lg:flex-col 
+          lg:justify-center
+          lg:items-stretch
+          lg:gap-12
         "
       >
         <Question />
