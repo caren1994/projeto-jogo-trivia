@@ -4,20 +4,20 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Button from '../Button';
-// import ButtonQuestion from './ButtonQuestion';
-// import shuffleArr from '../../utils/shuffle';
+import ButtonQuestion from './ButtonQuestion';
+import shuffleArr from '../../utils/shuffle';
 
 import Logo from '../../assets/logo trivia.svg';
 
 function Question({ questions }) {
-  // const {
-  //   incorrect_answers: incorrectAnswers,
-  //   correct_answer: correactAnswer,
-  //   category,
-  //   question } = questions[0];
+  const {
+    incorrect_answers: incorrectAnswers,
+    correct_answer: correactAnswer,
+    category,
+    question } = questions[0];
 
-  // const answers = incorrectAnswers.map((item, index) => ({ question: item, index }));
-  // answers.push({ question: correactAnswer, index: 3 });
+  const answers = incorrectAnswers.map((item, index) => ({ question: item, index }));
+  answers.push({ question: correactAnswer, index: 3 });
 
   return (
     <>
@@ -32,7 +32,7 @@ function Question({ questions }) {
           "
       >
         <img
-          src={Logo}
+          src={ Logo }
           alt="Logo"
           className="
               w-56
@@ -69,7 +69,7 @@ function Question({ questions }) {
               "
 
           >
-            {/* <h3 data-testid="question-category">{category}</h3> */}
+            <h3 data-testid="question-category">{category}</h3>
           </div>
           <p
             className="
@@ -79,7 +79,7 @@ function Question({ questions }) {
             "
             data-testid="question-text"
           >
-            {/* {question} */}
+            {question}
           </p>
           <span
             className="
@@ -118,23 +118,23 @@ function Question({ questions }) {
             "
           data-testid="answer-options"
         >
-          {/* {shuffleArr(answers) */}
-          {/*   .map(({ question: quest, index }) => { */}
-          {/*     const incorrectId = `wrong-answer-${index}`; */}
-          {/*     return (<ButtonQuestion */}
-          {/*       key={index} */}
-          {/*       text={quest} */}
-          {/*       data_testid={`${quest === correactAnswer */}
-          {/*         ? 'correct-answer' */}
-          {/*         : incorrectId}`} */}
-          {/*     />); */}
-          {/*   })} */}
+          {shuffleArr(answers)
+            .map(({ question: quest, index }) => {
+              const incorrectId = `wrong-answer-${index}`;
+              return (<ButtonQuestion
+                key={ index }
+                text={ quest }
+                data_testid={ `${quest === correactAnswer
+                  ? 'correct-answer'
+                  : incorrectId}` }
+              />);
+            })}
         </main>
 
         <Button
           type="button"
           text="Próxima"
-          style={{ marginTop: '1rem', borderRadius: '15px' }}
+          style={ { marginTop: '1rem', borderRadius: '15px' } }
         />
       </div>
     </>
@@ -154,8 +154,8 @@ Question.propTypes = {
       incorrect_answers: PropTypes.arrayOf(
         PropTypes.string.isRequired,
       ),
-    })
-  )
+    }),
+  ).isRequired,
 };
 
 export default connect(mapStateToProps)(Question);
