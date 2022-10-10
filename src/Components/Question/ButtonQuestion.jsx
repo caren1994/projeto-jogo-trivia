@@ -1,4 +1,6 @@
-const ButtonQuestion = ({ text }) => {
+import PropTypes from 'prop-types';
+
+function ButtonQuestion({ text, data_testid: dataId }) {
   return (
     <button
       className="
@@ -15,10 +17,16 @@ const ButtonQuestion = ({ text }) => {
         transition-all
        "
       type="button"
+      data-testid={ dataId }
     >
       {text}
     </button>
-  )
+  );
 }
 
-export default ButtonQuestion
+ButtonQuestion.propTypes = {
+  text: PropTypes.string.isRequired,
+  data_testid: PropTypes.string.isRequired,
+};
+
+export default ButtonQuestion;

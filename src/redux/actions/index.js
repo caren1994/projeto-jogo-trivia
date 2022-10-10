@@ -8,6 +8,6 @@ export const login = (payload) => ({
 export const setQuestions = (payload) => ({
   type: QUESTIONS_REQ,
   payload,
-})
+});
 
 export const failApi = (payload) => ({ type: FAIL_REQ, payload });

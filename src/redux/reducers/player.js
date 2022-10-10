@@ -8,41 +8,41 @@ const INITIAL_STATE = {
   questions: [],
   requisition: {
     failed: false,
-    errorMessage: ''
+    errorMessage: '',
   },
 };
 
 export default function PlayerReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case LOGIN:
-      return {
-        ...state,
-        requisition: {
-          failed: false,
-          errorMessage: '',
-        },
-        gravatarEmail: action.payload.email,
-        name: action.payload.name,
-      };
-    case FAIL_REQ:
-      return {
-        ...state,
-        requisition: {
-          failed: true,
-          errorMessage: action.payload,
-        }
-      };
-    case QUESTIONS_REQ:
-      return {
-        ...state,
-        requisition: {
-          failed: false,
-          errorMessage: '',
-        },
-        questions: action.payload.results
-      }
+  case LOGIN:
+    return {
+      ...state,
+      requisition: {
+        failed: false,
+        errorMessage: '',
+      },
+      gravatarEmail: action.payload.email,
+      name: action.payload.name,
+    };
+  case FAIL_REQ:
+    return {
+      ...state,
+      requisition: {
+        failed: true,
+        errorMessage: action.payload,
+      },
+    };
+  case QUESTIONS_REQ:
+    return {
+      ...state,
+      requisition: {
+        failed: false,
+        errorMessage: '',
+      },
+      questions: action.payload.results,
+    };
 
-    default:
-      return state;
+  default:
+    return state;
   }
 }

@@ -12,8 +12,8 @@ function Game() {
           w-[100%]
           grid
           grid-cols-2
-          lg:flex 
-          lg:flex-col 
+          lg:flex
+          lg:flex-col
           lg:justify-center
           lg:items-stretch
           lg:gap-12
@@ -22,11 +22,11 @@ function Game() {
         <Question />
       </section>
     </div>
-  )
+  );
 }
 
 const mapStateToProps = (state) => ({
-  failedRequest: state.player.requisition.failed
-})
+  failedRequest: state.player.requisition.failed,
+});
 
 export default connect(mapStateToProps)(Game);

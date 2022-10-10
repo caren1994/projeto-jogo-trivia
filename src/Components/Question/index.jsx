@@ -1,18 +1,24 @@
 import { IoTimeSharp } from 'react-icons/io5';
-import { AiFillCloseCircle, AiFillCheckCircle } from 'react-icons/ai';
-import Button from '../Button';
-import Logo from '../../assets/logo trivia.svg';
+// import { AiFillCloseCircle, AiFillCheckCircle } from 'react-icons/ai';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import Button from '../Button';
 import ButtonQuestion from './ButtonQuestion';
+import shuffleArr from '../../utils/shuffle';
+
+import Logo from '../../assets/logo trivia.svg';
 
 function Question({ questions }) {
+  const {
+    incorrect_answers: incorrectAnswers,
+    correct_answer: correactAnswer,
+    category,
+    question } = questions[0];
 
-  const question = questions[0]
-  const answers = [
-    ...question.incorrect_answers,
-    question.correct_answer
-  ];
-  console.log(question)
+  const answers = incorrectAnswers.map((item, index) => ({ question: item, index }));
+  answers.push({ question: correactAnswer, index: 3 });
+  console.log(shuffleArr(answers));
   return (
     <>
       <div
@@ -26,13 +32,13 @@ function Question({ questions }) {
           "
       >
         <img
-          src={Logo}
+          src={ Logo }
           alt="Logo"
           className="
               w-56
               relative
               -top-20
-              lg:top-0 
+              lg:top-0
               lg:mb-8
             "
         />
@@ -63,7 +69,7 @@ function Question({ questions }) {
               "
 
           >
-            <h3 data-testid="question-category">{question.category}</h3>
+            <h3 data-testid="question-category">{category}</h3>
           </div>
           <p
             className="
@@ -73,7 +79,7 @@ function Question({ questions }) {
             "
             data-testid="question-text"
           >
-            {question.question}
+            {question}
           </p>
           <span
             className="
@@ -106,40 +112,48 @@ function Question({ questions }) {
               flex
               flex-col
               container
+
               gap-4
               lg:mb-8
             "
+          data-testid="answer-options"
         >
-          {answers.map(item => (
-            <>
-              <ButtonQuestion key={item} text={item} />
-            </>
-          ))}
-          <Button
-            type="button"
-            className="
-                bg-[#2fc18c]
-                py-3
-                px-4
-                text-white
-                font-bold
-                text-xl
-                cursor-pointer
-                disabled:bg-[#186b4d]
-                hover:bg-[#186b4d]
-                rounded-lg
-              "
-            text="Próxima"
-          />
+          {shuffleArr(answers)
+            .map(({ question: quest, index }) => {
+              const incorrectId = `wrong-answer-${index}`;
+              return (<ButtonQuestion
+                key={ index }
+                text={ quest }
+                data_testid={ `${quest === correactAnswer
+                  ? 'correct-answer'
+                  : incorrectId}` }
+              />);
+            })}
         </main>
 
+        <Button
+          type="button"
+          text="Próxima"
+          style={ { marginTop: '1rem', borderRadius: '15px' } }
+        />
       </div>
     </>
   );
 }
 
 const mapStateToProps = (state) => ({
-  questions: state.player.questions
-})
+  questions: state.player.questions,
+});
+
+Question.propTypes = {
+  questions: PropTypes.arrayOf({
+    incorrect_answers: PropTypes.arrayOf(
+      PropTypes.string.isRequired,
+    ),
+    correct_answer: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    question: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default connect(mapStateToProps)(Question);

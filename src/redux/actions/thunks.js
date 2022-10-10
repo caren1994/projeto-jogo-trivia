@@ -9,15 +9,16 @@ export default function getToken(user, history) {
 
       dispatch(login(user));
 
-      const urlQuestions = `https://opentdb.com/api.php?amount=5&token=${token}`
+      const urlQuestions = `https://opentdb.com/api.php?amount=5&token=${token}`;
 
       const data = await (await fetch(urlQuestions)).json();
 
-      if (data.response_code === 3) {
+      const invalidTokenCode = 3;
+      if (data.response_code === invalidTokenCode) {
         throw new Error('Token Inválido!');
       }
-      dispatch(setQuestions(data))
-      history.push('/game')
+      dispatch(setQuestions(data));
+      history.push('/game');
     } catch (e) {
       localStorage.removeItem('token');
       dispatch(failApi(e.message));

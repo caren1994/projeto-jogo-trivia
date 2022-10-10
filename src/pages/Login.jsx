@@ -31,7 +31,6 @@ class Login extends Component {
     const { submitForm, history } = this.props;
     const { email, name } = this.state;
     submitForm({ email, name }, history);
-
   };
 
   handleConfiguration = () => {
@@ -54,7 +53,7 @@ class Login extends Component {
         "
       >
         <img
-          src={Logo}
+          src={ Logo }
           alt="Logo"
           className="
             sm:w-32
@@ -90,10 +89,10 @@ class Login extends Component {
               "
               data-testid="input-player-name"
               type="text"
-              value={name}
+              value={ name }
               placeholder="Name"
               name="name"
-              onChange={this.handleChange}
+              onChange={ this.handleChange }
             />
 
             <input
@@ -106,16 +105,16 @@ class Login extends Component {
               "
               data-testid="input-gravatar-email"
               type="email"
-              value={email}
+              value={ email }
               name="email"
               placeholder="Email"
-              onChange={this.handleChange}
+              onChange={ this.handleChange }
             />
             <Button
-              disabled={disabled}
+              disabled={ disabled }
               type="button"
               data-testid="btn-play"
-              onClick={this.handleClick}
+              onClick={ this.handleClick }
               text="Play"
             />
             <button
@@ -131,7 +130,7 @@ class Login extends Component {
               "
               type="button"
               data-testid="btn-settings"
-              onClick={this.handleConfiguration}
+              onClick={ this.handleConfiguration }
             >
               Configurações
             </button>
