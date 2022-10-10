@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function ButtonQuestion({ text, data_testid: dataId }) {
+function ButtonQuestion({ text, onClick, data_testid: dataId, ...rest }) {
   return (
     <button
       className="
@@ -16,8 +16,10 @@ function ButtonQuestion({ text, data_testid: dataId }) {
         hover:-translate-y-2
         transition-all
        "
+      onClick={ onClick }
       type="button"
       data-testid={ dataId }
+      { ...rest }
     >
       {text}
     </button>
@@ -27,6 +29,7 @@ function ButtonQuestion({ text, data_testid: dataId }) {
 ButtonQuestion.propTypes = {
   text: PropTypes.string.isRequired,
   data_testid: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default ButtonQuestion;
