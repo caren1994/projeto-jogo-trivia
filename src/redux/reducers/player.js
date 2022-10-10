@@ -10,8 +10,6 @@ import { LOGIN, FAIL_REQ, QUESTIONS_REQ } from '../actions/actionTypes';
 //   }
 // ]
 
-
-
 const INITIAL_STATE = {
   name: '',
   assertions: 0,
