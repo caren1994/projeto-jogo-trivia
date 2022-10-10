@@ -3,7 +3,6 @@
 /* @tailwind components ; */
 
 /* @tailwind utilities ; */
-
 body, html {
   background-image: url('./assets/background.png');
   background-repeat: no-repeat;
