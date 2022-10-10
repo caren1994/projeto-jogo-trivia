@@ -2,6 +2,7 @@ import { IoTimeSharp } from 'react-icons/io5';
 // import { AiFillCloseCircle, AiFillCheckCircle } from 'react-icons/ai';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 
 import Button from '../Button';
 // import ButtonQuestion from './ButtonQuestion';
@@ -10,6 +11,23 @@ import Button from '../Button';
 import Logo from '../../assets/logo trivia.svg';
 
 function Question({ questions }) {
+  const initialValue = 30;
+  const [timer, setTimer] = useState(initialValue);
+
+  const cronometro = () => {
+    const diminui = timer - 1;
+    const second = 1000;
+    const idInterval = setInterval(() => {
+      if (timer === 0) {
+        clearInterval(idInterval);
+      }
+      setTimer(diminui);
+    }, second);
+  };
+  useEffect(() => {
+    cronometro();
+  }, [estados]);
+
   // const {
   //   incorrect_answers: incorrectAnswers,
   //   correct_answer: correactAnswer,
@@ -32,7 +50,7 @@ function Question({ questions }) {
           "
       >
         <img
-          src={Logo}
+          src={ Logo }
           alt="Logo"
           className="
               w-56
@@ -134,7 +152,7 @@ function Question({ questions }) {
         <Button
           type="button"
           text="Próxima"
-          style={{ marginTop: '1rem', borderRadius: '15px' }}
+          style={ { marginTop: '1rem', borderRadius: '15px' } }
         />
       </div>
     </>
@@ -154,8 +172,8 @@ Question.propTypes = {
       incorrect_answers: PropTypes.arrayOf(
         PropTypes.string.isRequired,
       ),
-    })
-  )
+    }).isRequired,
+  ).isRequired,
 };
 
 export default connect(mapStateToProps)(Question);
