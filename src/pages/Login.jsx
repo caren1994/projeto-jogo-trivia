@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getRequest, user } from '../redux/actions';
+import getToken from '../redux/actions/thunks';
+import Button from '../Components/Button';
 import Logo from '../assets/logo trivia.svg';
 
 class Login extends Component {
@@ -27,10 +28,9 @@ class Login extends Component {
 
   handleClick = (e) => {
     e.preventDefault();
-    const { submitForm, history, request } = this.props;
-    request();
-    submitForm({ ...this.state });
-    history.push('/game');
+    const { submitForm, history } = this.props;
+    const { email, name } = this.state;
+    submitForm({ email, name }, history);
   };
 
   handleConfiguration = () => {
@@ -110,25 +110,13 @@ class Login extends Component {
               placeholder="Email"
               onChange={ this.handleChange }
             />
-            <button
-              className="
-                bg-[#2fc18c]
-                py-3
-                px-4
-                text-white
-                font-bold
-                text-xl
-                cursor-pointer
-                disabled:bg-[#186b4d]
-                hover:bg-[#186b4d]
-              "
+            <Button
               disabled={ disabled }
               type="button"
               data-testid="btn-play"
               onClick={ this.handleClick }
-            >
-              Play
-            </button>
+              text="Play"
+            />
             <button
               className="
                 bg-gray-400
@@ -152,12 +140,6 @@ class Login extends Component {
     );
   }
 }
-Login.propTypes = {
-
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
-};
 
 Login.propTypes = {
   submitForm: PropTypes.func,
@@ -167,8 +149,7 @@ Login.propTypes = {
 }.isRequired;
 
 const mapDispatchToProps = (dispatch) => ({
-  request: () => dispatch(getRequest()),
-  submitForm: (e) => dispatch(user(e)),
+  submitForm: (user, history) => dispatch(getToken(user, history)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

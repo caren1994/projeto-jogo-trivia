@@ -1,5 +1,5 @@
-function getKey() {
-
+async function getToken() {
+  console.log('EMPTY FUNCTION');
 }
 
-export default getKey;
+export default getToken;

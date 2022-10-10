@@ -19,6 +19,7 @@ function Header({ userEmail, name, score }) {
         items-center
         px-20
         shadow
+        bg-white
       "
     >
       <div
@@ -39,6 +40,10 @@ function Header({ userEmail, name, score }) {
             data-testid="header-profile-picture"
             alt="Perfil Usuário"
             src={ url }
+            className="
+              rounded-full
+              w-16
+            "
           />
           <span data-testid="header-player-name">{name}</span>
         </div>
@@ -68,9 +73,13 @@ function Header({ userEmail, name, score }) {
         <div
           className="
             text-center
+            cursor-pointer
+            flex
+            items-center
+            justify-center
           "
         >
-          <FcDataConfiguration className="text-2xl mt-1" />
+          <FcDataConfiguration className="text-2xl" />
         </div>
 
       </div>
