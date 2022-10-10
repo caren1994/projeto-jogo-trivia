@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { IoTimeSharp } from 'react-icons/io5';
 // import { AiFillCloseCircle, AiFillCheckCircle } from 'react-icons/ai';
 import { connect } from 'react-redux';
@@ -10,6 +11,8 @@ import shuffleArr from '../../utils/shuffle';
 import Logo from '../../assets/logo trivia.svg';
 
 function Question({ questions }) {
+  const [tried, setTry] = useState(false);
+
   const {
     incorrect_answers: incorrectAnswers,
     correct_answer: correactAnswer,
@@ -18,6 +21,11 @@ function Question({ questions }) {
 
   const answers = incorrectAnswers.map((item, index) => ({ question: item, index }));
   answers.push({ question: correactAnswer, index: 3 });
+  console.log(correactAnswer);
+
+  const handleClick = () => {
+    setTry(true);
+  };
 
   return (
     <>
@@ -121,9 +129,15 @@ function Question({ questions }) {
           {shuffleArr(answers)
             .map(({ question: quest, index }) => {
               const incorrectId = `wrong-answer-${index}`;
+              const border = (quest === correactAnswer)
+                ? '3px solid rgb(6, 240, 15)'
+                : '3px solid red';
+
               return (<ButtonQuestion
                 key={ index }
                 text={ quest }
+                style={ { border: `${tried ? border : ''}` } }
+                onClick={ handleClick }
                 data_testid={ `${quest === correactAnswer
                   ? 'correct-answer'
                   : incorrectId}` }
