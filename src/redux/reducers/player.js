@@ -1,5 +1,17 @@
 import { LOGIN, FAIL_REQ, QUESTIONS_REQ } from '../actions/actionTypes';
 
+// questions = [
+//   {
+//     correct_answer = string,
+//     incorrect_answers = 3 [string]
+//     type:verdadeiro ou falso ou multipla escolha => string,
+//     category: string,
+//     question: string
+//   }
+// ]
+
+
+
 const INITIAL_STATE = {
   name: '',
   assertions: 0,
