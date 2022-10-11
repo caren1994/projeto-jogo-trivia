@@ -10,43 +10,47 @@ import shuffleArr from '../../utils/shuffle';
 
 import Logo from '../../assets/logo trivia.svg';
 
-function Question({ questions }) {
+function Question({ questions, score }) {
   const {
     incorrect_answers: incorrectAnswers,
     correct_answer: correactAnswer,
     category,
-    question } = questions[0];
+    question,
+  } = questions[0];
 
   const answers = incorrectAnswers.map((item, index) => ({ question: item, index }));
   answers.push({ question: correactAnswer, index: 3 });
 
-  const handleClick = (e, { target }) => {
+  const handleClick = (e) => {
+    const { target } = e;
     e.preventDefault();
 
-    const { text } = target;
     const timer = 19;
+    const sum = score;
+    let points = 0;
 
     const dificuldade = { hard: 3, medium: 2, easy: 1 };
     const dez = 10;
 
-    if (text === correactAnswer) {
+    if (questions.correct_answer === correactAnswer) {
+      console.log('if 1', score);
       return dificuldade.filter((x) => {
         if (difficulty === x) {
-          setState({ score: dez + (timer * x) });
-          console.log(score);
+          points = (sum + (dez + (timer * x)));
+          console.log('if 2', points);
         }
         return '';
       });
     }
+    submitForm(points);
   };
 
-  const handleClickCalculate = (e) => {
+  /*   const handleClickCalculate = (e) => {
     e.preventDefault();
-
     const { submitForm } = props;
 
     submitForm(score);
-  };
+  }; */
 
   return (
     <>
@@ -164,7 +168,7 @@ function Question({ questions }) {
         <Button
           type="button"
           text="Próxima"
-          onClick={ handleClickCalculate }
+          /* onClick={ handleClickCalculate } */
           style={ { marginTop: '1rem', borderRadius: '15px' } }
         />
       </div>
