@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { IoTimeSharp } from 'react-icons/io5';
 // import { AiFillCloseCircle, AiFillCheckCircle } from 'react-icons/ai';
 import { connect } from 'react-redux';
@@ -11,6 +12,26 @@ import shuffleArr from '../../utils/shuffle';
 import Logo from '../../assets/logo trivia.svg';
 
 function Question({ questions, score, submitForm }) {
+  const initialValue = 30;
+  const [timer, setTimer] = useState(initialValue);
+  const [tried, setTry] = useState(false);
+
+  useEffect(() => {
+    let interval = null;
+    const second = 1000;
+    if (timer > 0 && !tried) {
+      interval = setInterval(() => {
+        setTimer((time) => time - 1);
+      }, second);
+    } else {
+      setTry(true);
+      clearInterval(interval);
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [timer, tried]);
+
   const {
     incorrect_answers: incorrectAnswers,
     correct_answer: correactAnswer,
@@ -21,12 +42,14 @@ function Question({ questions, score, submitForm }) {
 
   const answers = incorrectAnswers.map((item, index) => ({ question: item, index }));
   answers.push({ question: correactAnswer, index: 3 });
+  console.log(correactAnswer);
 
   const handleClick = (e) => {
+    setTry(true);
+
     const { target } = e;
     e.preventDefault();
 
-    const timer = 19;
     const sum = score;
     let points = 0;
 
@@ -125,7 +148,7 @@ function Question({ questions, score, submitForm }) {
             <IoTimeSharp className="mr-2" />
             Tempo:
             {' '}
-            <strong>19s</strong>
+            <strong>{timer}</strong>
           </span>
         </main>
       </div>
@@ -152,10 +175,16 @@ function Question({ questions, score, submitForm }) {
           {shuffleArr(answers)
             .map(({ question: quest, index }) => {
               const incorrectId = `wrong-answer-${index}`;
+              const border = (quest === correactAnswer)
+                ? '3px solid rgb(6, 240, 15)'
+                : '3px solid red';
+
               return (<ButtonQuestion
                 id={ index }
                 key={ index }
+                disabled={ tried }
                 text={ quest }
+                style={ { border: `${tried ? border : ''}` } }
                 onClick={ handleClick }
                 data_testid={ `${quest === correactAnswer
                   ? 'correct-answer'

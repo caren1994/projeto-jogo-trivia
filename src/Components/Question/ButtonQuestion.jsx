@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function ButtonQuestion({ text, data_testid: dataId, onClick, ...rest }) {
+function ButtonQuestion({ text, onClick, data_testid: dataId, ...rest }) {
   return (
     <button
       className="
@@ -16,8 +16,8 @@ function ButtonQuestion({ text, data_testid: dataId, onClick, ...rest }) {
         hover:-translate-y-2
         transition-all
        "
-      type="button"
       onClick={ onClick }
+      type="button"
       data-testid={ dataId }
       { ...rest }
     >
