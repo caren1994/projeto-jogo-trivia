@@ -51,7 +51,11 @@ export default function PlayerReducer(state = INITIAL_STATE, action) {
       },
       questions: action.payload.results,
     };
-
+  case SCORE_PLAYER:
+    return {
+      ...state,
+      score: action.payload,
+    };
   default:
     return state;
   }

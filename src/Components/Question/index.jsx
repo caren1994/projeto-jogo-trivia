@@ -2,6 +2,7 @@ import { IoTimeSharp } from 'react-icons/io5';
 // import { AiFillCloseCircle, AiFillCheckCircle } from 'react-icons/ai';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { scorePlayer } from '../../redux/actions';
 
 import Button from '../Button';
 import ButtonQuestion from './ButtonQuestion';
@@ -10,6 +11,7 @@ import shuffleArr from '../../utils/shuffle';
 import Logo from '../../assets/logo trivia.svg';
 
 function Question({ questions }) {
+  state = { score: 0, timer: 0 };
   const {
     incorrect_answers: incorrectAnswers,
     correct_answer: correactAnswer,
@@ -18,6 +20,28 @@ function Question({ questions }) {
 
   const answers = incorrectAnswers.map((item, index) => ({ question: item, index }));
   answers.push({ question: correactAnswer, index: 3 });
+
+  handleClick = (e, { target }) => {
+    e.preventDefault();
+
+    const { dispatch } = props;
+    const { text } = target;
+    const { timer } = state;
+
+    const dificuldade = { hard: 3, medium: 2, easy: 1 };
+    const dez = 10;
+
+    if (text === correactAnswer) {
+      return dificuldade.filter((x) => {
+        if (difficulty === x) {
+          setState({ score: dez + (timer * x) });
+        }
+        return '';
+      });
+    }
+
+    dispatch(scorePlayer(score));
+  };
 
   return (
     <>
@@ -124,6 +148,7 @@ function Question({ questions }) {
               return (<ButtonQuestion
                 key={ index }
                 text={ quest }
+                onClick={ handleClick }
                 data_testid={ `${quest === correactAnswer
                   ? 'correct-answer'
                   : incorrectId}` }
@@ -143,9 +168,15 @@ function Question({ questions }) {
 
 const mapStateToProps = (state) => ({
   questions: state.player.questions,
+  score: state.player.score,
+});
+
+const mapDispatchToProps = (e) => ({
+  score: dispatch(e),
 });
 
 Question.propTypes = {
+  dispatch: dispatch.func,
   questions: PropTypes.arrayOf(
     PropTypes.shape({
       correct_answer: PropTypes.string.isRequired,
@@ -156,6 +187,6 @@ Question.propTypes = {
       ),
     }),
   ).isRequired,
-};
+}.isRequired;
 
-export default connect(mapStateToProps)(Question);
+export default connect(mapStateToProps, mapDispatchToProps)(Question);
