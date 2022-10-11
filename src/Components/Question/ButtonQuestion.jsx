@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 function ButtonQuestion({ text, onClick, data_testid: dataId, ...rest }) {
   return (
     <button
-      disabled={ isDisabled }
       className="
         bg-white
         shadow-lg
