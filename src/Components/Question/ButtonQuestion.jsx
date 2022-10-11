@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 
-function ButtonQuestion({ text, data_testid: dataId }) {
+function ButtonQuestion({ text, onClick, isDisabled, data_testid: dataId }) {
   return (
     <button
+      onClick={ onClick }
+      disabled={ isDisabled }
       className="
         bg-white
         shadow-lg
@@ -27,6 +29,8 @@ function ButtonQuestion({ text, data_testid: dataId }) {
 ButtonQuestion.propTypes = {
   text: PropTypes.string.isRequired,
   data_testid: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
 };
 
 export default ButtonQuestion;

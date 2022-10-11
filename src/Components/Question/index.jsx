@@ -11,23 +11,32 @@ import shuffleArr from '../../utils/shuffle';
 import Logo from '../../assets/logo trivia.svg';
 
 function Question({ questions }) {
-  const initialValue = 30;
+  const initialValue = 5;
   const [timer, setTimer] = useState(initialValue);
+  const [estado, setEstado] = useState(true);
+  const [isDisabled, setDisabled] = useState(false);
 
-  const cronometro = () => {
-    const diminui = timer - 1;
-    const second = 1000;
-    const idInterval = setInterval(() => {
-      if (timer === 0) {
-        clearInterval(idInterval);
-      }
-      setTimer(diminui);
-    }, second);
-  };
   useEffect(() => {
-    cronometro();
-  }, [estados]);
+    let interval = null;
+    const second = 1000;
+    if (timer > 0 && estado) {
+      interval = setInterval(() => {
+        setTimer((time) => time - 1);
+      }, second);
+    } else if (estado === false) {
+      console.log('para por favor');
+    } else if (timer <= 0) {
+      setDisabled(true);
+      clearInterval(interval);
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [timer, estado, isDisabled]);
 
+  const AlteraEstado = () => {
+    setEstado(false);
+  };
   const {
     incorrect_answers: incorrectAnswers,
     correct_answer: correactAnswer,
@@ -112,7 +121,7 @@ function Question({ questions }) {
             <IoTimeSharp className="mr-2" />
             Tempo:
             {' '}
-            <strong>19s</strong>
+            <strong>{timer}</strong>
           </span>
         </main>
       </div>
@@ -141,6 +150,8 @@ function Question({ questions }) {
               const incorrectId = `wrong-answer-${index}`;
               return (<ButtonQuestion
                 key={ index }
+                disabled={ isDisabled }
+                onClick={ AlteraEstado }
                 text={ quest }
                 data_testid={ `${quest === correactAnswer
                   ? 'correct-answer'
