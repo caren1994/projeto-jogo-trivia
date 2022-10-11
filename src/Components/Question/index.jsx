@@ -16,6 +16,14 @@ function Question({ questions, score, submitForm }) {
   const [timer, setTimer] = useState(initialValue);
   const [tried, setTry] = useState(false);
 
+  const {
+    incorrect_answers: incorrectAnswers,
+    correct_answer: correactAnswer,
+    category,
+    question,
+    difficulty,
+  } = questions[0];
+
   useEffect(() => {
     let interval = null;
     const second = 1000;
@@ -32,17 +40,8 @@ function Question({ questions, score, submitForm }) {
     };
   }, [timer, tried]);
 
-  const {
-    incorrect_answers: incorrectAnswers,
-    correct_answer: correactAnswer,
-    category,
-    question,
-    difficulty,
-  } = questions[0];
-
   const answers = incorrectAnswers.map((item, index) => ({ question: item, index }));
   answers.push({ question: correactAnswer, index: 3 });
-  console.log(correactAnswer);
 
   const handleClick = (e) => {
     setTry(true);
@@ -56,14 +55,13 @@ function Question({ questions, score, submitForm }) {
     const dificuldade = { hard: 3, medium: 2, easy: 1 };
     const dez = 10;
 
-    console.log('targetId', target.id);
     if (target.id === '3') {
       const dif = dificuldade[difficulty];
       points = (sum + (dez + (timer * dif)));
       submitForm(points);
+    } else {
+      submitForm(sum);
     }
-
-    submitForm(sum);
   };
 
   /*   const handleClickCalculate = (e) => {

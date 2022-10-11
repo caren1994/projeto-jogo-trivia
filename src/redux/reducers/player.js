@@ -13,7 +13,7 @@ import { LOGIN, FAIL_REQ, QUESTIONS_REQ, SCORE_PLAYER } from '../actions/actionT
 const INITIAL_STATE = {
   name: '',
   assertions: 0,
-  score: 0,
+  score: 10,
   gravatarEmail: '',
   questions: [],
   requisition: {
