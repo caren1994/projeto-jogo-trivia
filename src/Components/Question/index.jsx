@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { IoTimeSharp } from 'react-icons/io5';
 // import { AiFillCloseCircle, AiFillCheckCircle } from 'react-icons/ai';
 import { connect } from 'react-redux';
@@ -11,7 +11,25 @@ import shuffleArr from '../../utils/shuffle';
 import Logo from '../../assets/logo trivia.svg';
 
 function Question({ questions }) {
+  const initialValue = 30;
+  const [timer, setTimer] = useState(initialValue);
   const [tried, setTry] = useState(false);
+
+  useEffect(() => {
+    let interval = null;
+    const second = 1000;
+    if (timer > 0 && !tried) {
+      interval = setInterval(() => {
+        setTimer((time) => time - 1);
+      }, second);
+    } else {
+      setTry(true);
+      clearInterval(interval);
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [timer, tried]);
 
   const {
     incorrect_answers: incorrectAnswers,
@@ -102,7 +120,7 @@ function Question({ questions }) {
             <IoTimeSharp className="mr-2" />
             Tempo:
             {' '}
-            <strong>19s</strong>
+            <strong>{timer}</strong>
           </span>
         </main>
       </div>
@@ -135,6 +153,7 @@ function Question({ questions }) {
 
               return (<ButtonQuestion
                 key={ index }
+                disabled={ tried }
                 text={ quest }
                 style={ { border: `${tried ? border : ''}` } }
                 onClick={ handleClick }
