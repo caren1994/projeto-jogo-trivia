@@ -10,12 +10,13 @@ import shuffleArr from '../../utils/shuffle';
 
 import Logo from '../../assets/logo trivia.svg';
 
-function Question({ questions, score }) {
+function Question({ questions, score, submitForm }) {
   const {
     incorrect_answers: incorrectAnswers,
     correct_answer: correactAnswer,
     category,
     question,
+    difficulty,
   } = questions[0];
 
   const answers = incorrectAnswers.map((item, index) => ({ question: item, index }));
@@ -32,17 +33,14 @@ function Question({ questions, score }) {
     const dificuldade = { hard: 3, medium: 2, easy: 1 };
     const dez = 10;
 
-    if (questions.correct_answer === correactAnswer) {
-      console.log('if 1', score);
-      return dificuldade.filter((x) => {
-        if (difficulty === x) {
-          points = (sum + (dez + (timer * x)));
-          console.log('if 2', points);
-        }
-        return '';
-      });
+    console.log('targetId', target.id);
+    if (target.id === '3') {
+      const dif = dificuldade[difficulty];
+      points = (sum + (dez + (timer * dif)));
+      submitForm(points);
     }
-    submitForm(points);
+
+    submitForm(sum);
   };
 
   /*   const handleClickCalculate = (e) => {
@@ -155,6 +153,7 @@ function Question({ questions, score }) {
             .map(({ question: quest, index }) => {
               const incorrectId = `wrong-answer-${index}`;
               return (<ButtonQuestion
+                id={ index }
                 key={ index }
                 text={ quest }
                 onClick={ handleClick }
