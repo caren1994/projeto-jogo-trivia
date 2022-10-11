@@ -20,7 +20,7 @@ function Question({ questions }) {
   const answers = incorrectAnswers.map((item, index) => ({ question: item, index }));
   answers.push({ question: correactAnswer, index: 3 });
 
-  handleClick = (e, { target }) => {
+  const handleClick = (e, { target }) => {
     e.preventDefault();
 
     const { submitForm } = props;
