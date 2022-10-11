@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 
-function ButtonQuestion({ text, onClick, isDisabled, data_testid: dataId }) {
+function ButtonQuestion({ text, isDisabled, data_testid: dataId,...rest }) {
   return (
     <button
-      onClick={ onClick }
       disabled={ isDisabled }
       className="
         bg-white
@@ -20,6 +19,7 @@ function ButtonQuestion({ text, onClick, isDisabled, data_testid: dataId }) {
        "
       type="button"
       data-testid={ dataId }
+      {...rest}
     >
       {text}
     </button>

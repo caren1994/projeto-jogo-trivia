@@ -11,32 +11,30 @@ import shuffleArr from '../../utils/shuffle';
 import Logo from '../../assets/logo trivia.svg';
 
 function Question({ questions }) {
-  const initialValue = 5;
+  const initialValue = 30;
   const [timer, setTimer] = useState(initialValue);
-  const [estado, setEstado] = useState(true);
   const [isDisabled, setDisabled] = useState(false);
 
   useEffect(() => {
     let interval = null;
     const second = 1000;
-    if (timer > 0 && estado) {
+    if (timer >  0 && !isDisabled) {
       interval = setInterval(() => {
         setTimer((time) => time - 1);
       }, second);
-    } else if (estado === false) {
-      console.log('para por favor');
-    } else if (timer <= 0) {
+    } else  {
       setDisabled(true);
       clearInterval(interval);
     }
     return () => {
       clearInterval(interval);
     };
-  }, [timer, estado, isDisabled]);
+  }, [timer]);
 
-  const AlteraEstado = () => {
-    setEstado(false);
-  };
+  const handleClickAnswer = () =>setDisabled(true)
+
+    
+
   const {
     incorrect_answers: incorrectAnswers,
     correct_answer: correactAnswer,
@@ -150,8 +148,8 @@ function Question({ questions }) {
               const incorrectId = `wrong-answer-${index}`;
               return (<ButtonQuestion
                 key={ index }
-                disabled={ isDisabled }
-                onClick={ AlteraEstado }
+                isDisabled={ isDisabled }
+                onClick={handleClickAnswer }
                 text={ quest }
                 data_testid={ `${quest === correactAnswer
                   ? 'correct-answer'
