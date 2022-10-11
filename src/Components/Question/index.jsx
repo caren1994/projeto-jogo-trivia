@@ -23,9 +23,8 @@ function Question({ questions }) {
   const handleClick = (e, { target }) => {
     e.preventDefault();
 
-    const { submitForm } = props;
     const { text } = target;
-    const timer = 2;
+    const timer = 19;
 
     const dificuldade = { hard: 3, medium: 2, easy: 1 };
     const dez = 10;
@@ -39,6 +38,12 @@ function Question({ questions }) {
         return '';
       });
     }
+  };
+
+  const handleClickCalculate = (e) => {
+    e.preventDefault();
+
+    const { submitForm } = props;
 
     submitForm(score);
   };
@@ -159,6 +164,7 @@ function Question({ questions }) {
         <Button
           type="button"
           text="Próxima"
+          onClick={ handleClickCalculate }
           style={ { marginTop: '1rem', borderRadius: '15px' } }
         />
       </div>
