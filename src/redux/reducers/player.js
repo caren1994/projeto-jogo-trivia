@@ -1,4 +1,4 @@
-import { LOGIN, FAIL_REQ, QUESTIONS_REQ } from '../actions/actionTypes';
+import { LOGIN, FAIL_REQ, QUESTIONS_REQ, SCORE_PLAYER } from '../actions/actionTypes';
 
 // questions = [
 //   {

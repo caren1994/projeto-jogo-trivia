@@ -24,7 +24,7 @@ function Question({ questions }) {
   handleClick = (e, { target }) => {
     e.preventDefault();
 
-    const { dispatch } = props;
+    const { submitForm } = props;
     const { text } = target;
     const { timer } = state;
 
@@ -40,7 +40,7 @@ function Question({ questions }) {
       });
     }
 
-    dispatch(scorePlayer(score));
+    submitForm(score);
   };
 
   return (
@@ -171,12 +171,12 @@ const mapStateToProps = (state) => ({
   score: state.player.score,
 });
 
-const mapDispatchToProps = (e) => ({
-  score: dispatch(e),
+const mapDispatchToProps = (dispatch) => ({
+  submitForm: (e) => dispatch(scorePlayer(e)),
 });
 
 Question.propTypes = {
-  dispatch: dispatch.func,
+  submitForm: PropTypes.func.isRequired,
   questions: PropTypes.arrayOf(
     PropTypes.shape({
       correct_answer: PropTypes.string.isRequired,
