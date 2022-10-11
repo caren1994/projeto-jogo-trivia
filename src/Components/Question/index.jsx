@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { IoTimeSharp } from 'react-icons/io5';
 // import { AiFillCloseCircle, AiFillCheckCircle } from 'react-icons/ai';
 import { connect } from 'react-redux';
@@ -11,14 +12,15 @@ import shuffleArr from '../../utils/shuffle';
 import Logo from '../../assets/logo trivia.svg';
 
 function Question({ questions }) {
+
   const initialValue = 30;
   const [timer, setTimer] = useState(initialValue);
-  const [isDisabled, setDisabled] = useState(false);
+  const [tried, setTry] = useState(false);
 
   useEffect(() => {
     let interval = null;
     const second = 1000;
-    if (timer >  0 && !isDisabled) {
+    if (timer >  0 && !tried) {
       interval = setInterval(() => {
         setTimer((time) => time - 1);
       }, second);
@@ -30,10 +32,8 @@ function Question({ questions }) {
       clearInterval(interval);
     };
   }, [timer]);
-
-  const handleClickAnswer = () =>setDisabled(true)
-
     
+
 
   const {
     incorrect_answers: incorrectAnswers,
@@ -43,6 +43,11 @@ function Question({ questions }) {
 
   const answers = incorrectAnswers.map((item, index) => ({ question: item, index }));
   answers.push({ question: correactAnswer, index: 3 });
+  console.log(correactAnswer);
+
+  const handleClick = () => {
+    setTry(true);
+  };
 
   return (
     <>
@@ -146,11 +151,16 @@ function Question({ questions }) {
           {shuffleArr(answers)
             .map(({ question: quest, index }) => {
               const incorrectId = `wrong-answer-${index}`;
+              const border = (quest === correactAnswer)
+                ? '3px solid rgb(6, 240, 15)'
+                : '3px solid red';
+
               return (<ButtonQuestion
                 key={ index }
-                isDisabled={ isDisabled }
-                onClick={handleClickAnswer }
+                disabled={ tried }
                 text={ quest }
+                style={ { border: `${tried ? border : ''}` } }
+                onClick={ handleClick }
                 data_testid={ `${quest === correactAnswer
                   ? 'correct-answer'
                   : incorrectId}` }
