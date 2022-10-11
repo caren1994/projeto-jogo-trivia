@@ -11,7 +11,6 @@ import shuffleArr from '../../utils/shuffle';
 import Logo from '../../assets/logo trivia.svg';
 
 function Question({ questions }) {
-  state = { score: 0, timer: 0 };
   const {
     incorrect_answers: incorrectAnswers,
     correct_answer: correactAnswer,
@@ -26,7 +25,7 @@ function Question({ questions }) {
 
     const { submitForm } = props;
     const { text } = target;
-    const { timer } = state;
+    const timer = 2;
 
     const dificuldade = { hard: 3, medium: 2, easy: 1 };
     const dez = 10;
@@ -35,6 +34,7 @@ function Question({ questions }) {
       return dificuldade.filter((x) => {
         if (difficulty === x) {
           setState({ score: dez + (timer * x) });
+          console.log(score);
         }
         return '';
       });
